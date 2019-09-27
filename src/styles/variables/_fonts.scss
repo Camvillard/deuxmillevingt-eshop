@@ -1,0 +1,29 @@
+/* ------ VARIABLES : FONTS ------ */
+
+// import all files here
+@import url("https://use.typekit.net/zhb5abj.css");
+
+
+$body-font: 'objektiv-mk1', sans-serif;
+$headers-font: 'objektiv-mk1', sans-serif;
+$accent-font: 'roboto-mono', monospace;
+
+$font-weight-light: 300; //objektiv, roboto
+$font-weight-regular: 400; // roboto
+$font-weight-medium: 500; //
+$font-weight-semibold: 700; //objektiv
+$font-weight-bold: 800; //objektiv
+
+
+
+@media (min-width: $sm-screen) {
+} // end of sm-screen - 768px
+
+@media (min-width: $md-screen) {
+} // end of md-screen - 992px
+
+@media (min-width: $lg-screen) {
+} // end of lg-screen - 1200px
+
+@media (min-width: $hg-screen) {
+} // end of hg-screen - 1440px
