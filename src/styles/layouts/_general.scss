@@ -50,6 +50,12 @@ img {
   background:$teal-blue;
 }
 
+p, button {
+  font-size: 1.8rem;
+}
+
+
+
 
 @media (min-width: $sm-screen) {
 } // end of sm-screen - 768px
