@@ -27,25 +27,32 @@ class App extends React.Component {
       orderIsInitiated: true,
       emailAddress: e.target.value
     })
+    this.initiateUser(e.target.value)
+  };
+
+
+  initiateUser = (emailAddress) => {
+    // calling the API to create a user
+    // that is gonna be used to create the order
     axios.post('http://localhost:3000/users', {
       user: {
-        email: e.target.value
+        email: emailAddress
       }
     })
     .then(response => {
-        console.log('response', response)
+      console.log('response : ', response)
     })
     .catch(error => {
         console.log(error)
     })
+  }
 
-  };
 
   render(){
     return(
       <div>
         <input type="email" onBlur={this.handleInputBlur} placeholder="addresse email"/>
-        {this.state.orderIsInitiated  && <CheckoutForm /> }
+        {this.state.orderIsInitiated  && <CheckoutForm email={this.state.emailAddress} /> }
 
       </div>
 
