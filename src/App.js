@@ -3,8 +3,8 @@ import React from 'react';
 import axios from "axios";
 
 //  components
-import Product from "./components/product"
-import CheckoutForm from "./components/checkout-form"
+import OrderForm from "./components/order-form"
+import Confirmation from "./components/confirmation"
 
 //  assets & style
 // import logo from './logo.svg';
@@ -15,28 +15,24 @@ class App extends React.Component {
     super(props)
     this.state = {
       orderIsInitiated: false,
-      numberofItems: 0,
-      pickupMethod: '',
-      emailAddress: ''
+      email: ''
     }
   };
 
   handleInputBlur = (e) => {
-    console.log(e)
     this.setState({
       orderIsInitiated: true,
-      emailAddress: e.target.value
+      email: e.target.value
     })
     this.initiateUser(e.target.value)
   };
 
-
-  initiateUser = (emailAddress) => {
+  initiateUser = (email) => {
     // calling the API to create a user
     // that is gonna be used to create the order
     axios.post('http://localhost:3000/users', {
       user: {
-        email: emailAddress
+        email: email
       }
     })
     .then(response => {
@@ -45,15 +41,18 @@ class App extends React.Component {
     .catch(error => {
         console.log(error)
     })
+  };
+
+  confirmOrder = () => {
+    console.log('confirmer')
   }
 
 
   render(){
     return(
       <div>
-        <input type="email" onBlur={this.handleInputBlur} placeholder="addresse email"/>
-        {this.state.orderIsInitiated  && <CheckoutForm email={this.state.emailAddress} /> }
-
+        <input type="email" onBlur={this.handleInputBlur} placeholder="adresse email"/>
+        {this.state.orderIsInitiated  && <OrderForm email={this.state.email} /> }
       </div>
 
     )

@@ -1,14 +1,43 @@
 /* ------ COMPONENTS : FORMS ------ */
 
+input,
+select,
+label {
+  font-size: 1.4rem;
+}
 
+input {
+  margin-bottom: 16px;
+}
+
+.form-block {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+}
 
 @media (min-width: $sm-screen) {
 } // end of sm-screen - 768px
 
 @media (min-width: $md-screen) {
+  input,
+  select,
+  label {
+    font-size: 1.6rem;
+  }
+
+  input {
+    height: 4rem;
+  }
 } // end of md-screen - 992px
 
 @media (min-width: $lg-screen) {
+  input,
+  select,
+  label {
+    font-size: 1.8rem;
+  }
 } // end of lg-screen - 1200px
 
 @media (min-width: $hg-screen) {

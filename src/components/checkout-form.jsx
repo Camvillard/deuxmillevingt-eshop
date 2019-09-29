@@ -1,119 +1,67 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 
-class CheckoutForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      orderIsComplete: false,
-      emailAddress: this.props.email,
-      country: 'Canada',
-      pickup: 'colis simple'
-    };
-  };
+const CheckoutForm = (props) => {
+  return(
+    <div className="checkout">
 
-  submit = (e)  => {
-    e.preventDefault()
-    axios.post('http://localhost:3000/products', {
-      product: {
-        name: 'test',
-        description: 'test description',
-        price_cents: 56
-      }
-    })
-    .then(response => {
-        console.log('response', response)
-    })
-    .catch(error => {
-        console.log(error)
-    })
-  };
+      <input type="number" placeholder="3" onChange={props.setQuantity} />
 
-  handleInputBlur = (e) => {
-    console.log(e)
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  };
+      <form action="" onSubmit={props.submitOrder} className="form-block">
 
-  handleSelectChange = (e) =>  {
-    this.setState({
-      country:  e.target.value
-    })
-  };
+        <input
+          type="text"
+          name="name"
+          placeholder="nom, prénom"
+          onBlur={props.setForm}/>
 
-  handleRadioChange = (e) =>  {
-    this.setState({
-      pickup: e.target.value
-    })
-  };
+        <input
+          type="email"
+          name="email"
+          placeholder="adresse email"
+          defaultValue={props.defaultEmail}
+          onBlur={props.setForm}/>
 
-  sendOrder = (e) => {
-    e.preventDefault()
-    console.log(this.state)
-  };
+        <input
+          type="text"
+          name="address"
+          placeholder="adresse"
+          onBlur={props.setForm}/>
 
-  render() {
-    return (
-      <div className="checkout">
+        <input
+          type="text"
+          name="zipCode"
+          placeholder="code postale"
+          onBlur={props.setForm}/>
 
-        <input type="number" placeholder="3" onChange={this.setQuantity}/>
+        <input
+          type="text"
+          name="city"
+          placeholder="ville"
+          onBlur={props.setForm}/>
 
-        <form action="" onSubmit={this.sendOrder}>
+        <select name="country" id="country" onChange={props.setForm}>
+          <option value="Canada">Canada</option>
+          <option value="US">US</option>
+          <option value="other">reste du monde</option>
+        </select>
 
-          <input
-            type="text"
-            name="name"
-            placeholder="nom, prénom"
-            onBlur={this.handleInputBlur}/>
+        <div className="form-group">
+          <input type="radio" id="colis-simple" name="livraison" value="colis-simple" onChange={props.setForm} />
+          <label htmlFor="colis-simple">colis simple</label>
 
-          <input
-            type="email"
-            name="email"
-            placeholder="adresse email"
-            defaultValue={this.props.email}
-            onBlur={this.handleInputBlur}/>
+          <input type="radio" id="colis-suivi" name="livraison" value="colis-suivi" onChange={props.setForm} />
+          <label htmlFor="colis-suivi">colis suivi</label>
 
-          <input
-            type="text"
-            name="address"
-            placeholder="adresse"
-            onBlur={this.handleInputBlur}/>
+          <input type="radio" id="pickup" name="livraison" value="pickup" onChange={props.setForm} />
+          <label htmlFor="pickup">ramassage en boutique</label>
+        </div>
 
-          <input
-            type="text"
-            name="zipCode"
-            placeholder="code postale"
-            onBlur={this.handleInputBlur}/>
+        <button>pré-commander</button>
 
-          <input
-            type="text"
-            name="city"
-            placeholder="ville"
-            onBlur={this.handleInputBlur}/>
-
-          <select name="country" id="country" onChange={this.handleSelectChange}>
-            <option value="Canada">Canada</option>
-            <option value="US">US</option>
-            <option value="other">reste du monde</option>
-          </select>
-
-          <div className="form-group">
-            <input type="radio" id="colis-simple" name="livraison" value="colis-simple" onChange={this.handleRadioChange} />
-            <label htmlFor="colis-simple">colis simple</label>
-
-            <input type="radio" id="colis-suivi" name="livraison" value="colis-suivi" onChange={this.handleRadioChange} />
-            <label htmlFor="colis-suivi">colis suivi</label>
-
-            <input type="radio" id="pickup" name="livraison" value="pickup" onChange={this.handleRadioChange} />
-            <label htmlFor="pickup">ramassage en boutique</label>
-          </div>
-
-          <button>pré-commander</button>
-        </form>
-      </div>
-    );
-  }
+      </form>
+    </div>
+  )
 }
+
 
 export default CheckoutForm;
