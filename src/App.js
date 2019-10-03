@@ -15,7 +15,8 @@ class App extends React.Component {
     super(props)
     this.state = {
       orderIsInitiated: false,
-      email: ''
+      email: '',
+      userId: null
     }
   };
 
@@ -30,29 +31,28 @@ class App extends React.Component {
   initiateUser = (email) => {
     // calling the API to create a user
     // that is gonna be used to create the order
-    axios.post('http://localhost:3000/users', {
+    axios.post('https://deuxmillevingt-data.herokuapp.com/users', {
       user: {
         email: email
       }
     })
     .then(response => {
       console.log('response : ', response)
+      this.setState({
+        userId: response.data.id
+      })
     })
     .catch(error => {
         console.log(error)
     })
   };
 
-  confirmOrder = () => {
-    console.log('confirmer')
-  }
-
 
   render(){
     return(
       <div>
         <input type="email" onBlur={this.handleInputBlur} placeholder="adresse email"/>
-        {this.state.orderIsInitiated  && <OrderForm email={this.state.email} /> }
+        {this.state.orderIsInitiated  && <OrderForm email={this.state.email} userId={this.state.userId} /> }
       </div>
 
     )

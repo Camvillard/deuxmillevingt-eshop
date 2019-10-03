@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 const CheckoutForm = (props) => {
+  let pickupMethods = []
+  axios.get('https://deuxmillevingt-data.herokuapp.com/pickups')
+  .then(resp =>  {
+    console.log('pickups methods', resp)
+  })
+
   return(
     <div className="checkout">
 
@@ -46,13 +53,13 @@ const CheckoutForm = (props) => {
         </select>
 
         <div className="form-group">
-          <input type="radio" id="colis-simple" name="livraison" value="colis-simple" onChange={props.setForm} />
+          <input type="radio" id="colis-simple" name="livraison" value="colis-simple" onChange={props.pickupOptions} />
           <label htmlFor="colis-simple">colis simple</label>
 
-          <input type="radio" id="colis-suivi" name="livraison" value="colis-suivi" onChange={props.setForm} />
+          <input type="radio" id="colis-suivi" name="livraison" value="colis-suivi" onChange={props.pickupOptions} />
           <label htmlFor="colis-suivi">colis suivi</label>
 
-          <input type="radio" id="pickup" name="livraison" value="pickup" onChange={props.setForm} />
+          <input type="radio" id="pickup" name="livraison" value="pickup" onChange={props.pickupOptions} />
           <label htmlFor="pickup">ramassage en boutique</label>
         </div>
 
