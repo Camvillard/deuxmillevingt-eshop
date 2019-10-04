@@ -5,7 +5,7 @@ class Confirmation extends Component {
 
   sendOrder = (e) => {
     e.preventDefault()
-    console.log(this.state)
+    // console.log(this.state)
   };
 
   render() {

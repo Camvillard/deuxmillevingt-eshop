@@ -37,7 +37,7 @@ class App extends React.Component {
       }
     })
     .then(response => {
-      console.log('response : ', response)
+      // console.log('response : ', response)
       this.setState({
         userId: response.data.id
       })

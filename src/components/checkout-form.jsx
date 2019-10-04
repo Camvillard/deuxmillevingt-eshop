@@ -5,7 +5,10 @@ const CheckoutForm = (props) => {
   let pickupMethods = []
   axios.get('https://deuxmillevingt-data.herokuapp.com/pickups')
   .then(resp =>  {
-    console.log('pickups methods', resp)
+    resp.map( r => {
+      console.log('pickups methods', r)
+      // pickupMethods.push(r.data.data)
+    } )
   })
 
   return(
