@@ -31,7 +31,7 @@ class App extends React.Component {
   initiateUser = (email) => {
     // calling the API to create a user
     // that is gonna be used to create the order
-    axios.post('https://deuxmillevingt-data.herokuapp.com/users', {
+    axios.post('http://localhost:3000/users', {
       user: {
         email: email
       }

@@ -19,15 +19,15 @@ class OrderForm extends Component {
       orderIsPaid: false,
       email: this.props.email,
       country: 'Canada',
-      pickupMethod: '',
+      shippingFees: '',
       quantity: 0
     };
   };
 
   submitOrder = (e)  => {
     e.preventDefault()
-    // console.log(e)
-    this.setPickupPrice()
+    console.log(this.state)
+    // this.setPickupPrice()
     // creating an order object
     // axios.post('http://localhost:3000/orders', {
     //   order: {
@@ -49,13 +49,14 @@ class OrderForm extends Component {
     this.setState({
       [e.target.name]: e.target.value
     })
-  }
+  };
 
   selectPickupOption = (e) =>  {
     this.setState({
-      pickupMethod: e.target.value
+      shippingFees: e.target.value
     })
-  }
+  };
+
 
   setPickupPrice = () => {
     axios.get('http://localhost:3000/pickups')
@@ -74,9 +75,9 @@ class OrderForm extends Component {
       <React.Fragment>
         {!this.state.formIsComplete
           && <CheckoutForm
+            state={this.state}
             setForm={this.handleFormChange}
             pickupOptions={this.selectPickupOption}
-            setQuantity={this.setQuantity}
             defaultEmail={this.state.email}
             submitOrder={this.submitOrder} />}
 
