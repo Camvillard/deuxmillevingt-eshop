@@ -25,26 +25,26 @@ class App extends React.Component {
       orderIsInitiated: true,
       email: e.target.value
     })
-    this.initiateUser(e.target.value)
+    // this.initiateUser(e.target.value)
   };
 
   initiateUser = (email) => {
+      // this.setState({
+      //   userId: email
+      // })
     // calling the API to create a user
     // that is gonna be used to create the order
-    axios.post('http://localhost:3000/users', {
-      user: {
-        email: email
-      }
-    })
-    .then(response => {
-      // console.log('response : ', response)
-      this.setState({
-        userId: response.data.id
-      })
-    })
-    .catch(error => {
-        console.log(error)
-    })
+    // axios.post('http://localhost:3000/users', {
+    //   user: {
+    //     email: email
+    //   }
+    // })
+    // .then(response => {
+    //   // console.log('response : ', response)
+    // })
+    // .catch(error => {
+    //     console.log(error)
+    // })
   };
 
 

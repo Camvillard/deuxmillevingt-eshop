@@ -52,10 +52,48 @@ class OrderForm extends Component {
   };
 
   selectPickupOption = (e) =>  {
-    this.setState({
-      shippingFees: e.target.value
-    })
+    switch(this.state.country) {
+      case 'Canada':
+        // console.log('you are in Canada');
+        this.setShippingFees(1, e.target.value)
+        break;
+      case 'US':
+        // console.log('you are in US');
+        this.setShippingFees(1.5, e.target.value)
+        break;
+      case 'other':
+        // console.log('you are in another country')
+        this.setShippingFees(2, e.target.value)
+        break;
+    }
+
+    // this.setState({
+    //   shippingFees: e.target.value
+    // })
+
   };
+
+  setShippingFees  = (factor, shippingMethod) => {
+    let shippingFees
+    switch(shippingMethod) {
+      case 'colis simple' :
+        // console.log(`colis simple fois ${factor} fois`)
+        shippingFees = 15 * factor
+        break;
+      case 'colis suivi' :
+        // console.log(`colis suivi fois ${factor} fois`)
+        shippingFees = 25 * factor
+        break;
+      case 'pickup' :
+        // console.log(`ramassage en boutique`)
+        shippingFees = 0
+        break;
+    }
+    // console.log(shippingFees)
+    this.setState({
+      shippingFees
+    })
+  }
 
 
   setPickupPrice = () => {
