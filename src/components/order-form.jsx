@@ -18,21 +18,25 @@ class OrderForm extends Component {
       orderIsConfirmed: false,
       orderIsPaid: false,
       email: this.props.email,
-      country: 'Canada',
-      shippingFees: '',
-      quantity: 0
+      country: '',
+      shippingFees: 0,
+      shippingOptions: [],
+      quantity: 0,
+      totalAmount: 0,
+      taxes: 0,
+      calendarPrice: 52
     };
   };
 
   submitOrder = (e)  => {
     e.preventDefault()
     console.log(this.state)
-    // this.setPickupPrice()
-    // creating an order object
-    // axios.post('http://localhost:3000/orders', {
+    // if (this.state.name && this.state.address && this.state.zipCode) {
+    // //creating an order object
+    // axios.post('http://localhost:3001/orders', {
     //   order: {
     //     user_id: this.props.userId,
-    //     price_cents: this.state.quantity * 50,
+    //     price_cents: this.state.totalAmount,
     //   }
     // })
     // .then(response => {
@@ -41,6 +45,9 @@ class OrderForm extends Component {
     // .catch(error => {
     //     console.log(error)
     // })
+
+    // }
+    // this.setPickupPrice()
   };
 
 
@@ -51,73 +58,85 @@ class OrderForm extends Component {
     })
   };
 
-  selectPickupOption = (e) =>  {
-    switch(this.state.country) {
-      case 'Canada':
-        // console.log('you are in Canada');
-        this.setShippingFees(1, e.target.value)
-        break;
-      case 'US':
-        // console.log('you are in US');
-        this.setShippingFees(1.5, e.target.value)
-        break;
-      case 'other':
-        // console.log('you are in another country')
-        this.setShippingFees(2, e.target.value)
-        break;
-    }
-
-    // this.setState({
-    //   shippingFees: e.target.value
-    // })
-
+  setQuantity = (e) => {
+    this.setState({
+      quantity: e.target.value
+    })
+    this.calculTaxes(e.target.value * 52)
   };
 
-  setShippingFees  = (factor, shippingMethod) => {
-    let shippingFees
-    switch(shippingMethod) {
-      case 'colis simple' :
-        // console.log(`colis simple fois ${factor} fois`)
-        shippingFees = 15 * factor
-        break;
-      case 'colis suivi' :
-        // console.log(`colis suivi fois ${factor} fois`)
-        shippingFees = 25 * factor
-        break;
-      case 'pickup' :
-        // console.log(`ramassage en boutique`)
-        shippingFees = 0
-        break;
-    }
-    // console.log(shippingFees)
+  calculTaxes = (price) => {
+    const withTaxes = Math.floor((price * 0.14975)*100)/100
     this.setState({
-      shippingFees
+      taxes: withTaxes
     })
   }
 
+  // calculTotal = () => {
+  //   console.log('calcul total')
+  //   const calendarPrice =  parseInt(this.state.quantity * 52, 10)
+  //   // console.log('price :', calendarPrice)
+  //   const shipping = this.state.shippingFees
+  //   // console.log('shipping fees :', shipping)
+  //   const taxes = this.state.taxes
+  //   // console.log('taxes', withTaxes)
+  //   const total = shipping + taxes + calendarPrice
+  //   console.log('total', total)
+  //   this.setState({
+  //     totalAmount: total
+  //   })
+  //   console.log(this.state.totalAmount)
+  // }
 
-  setPickupPrice = () => {
-    axios.get('http://localhost:3000/pickups')
-    .then(response  =>  {
-      // console.log(response)
+  defineShippingOptions = (e) => {
+    console.log(e.target.value)
+    this.setState({
+      country: e.target.value
+    })
+    // retrieve all existing shipping methods
+    // check for each one of them is the selected coutry is available
+    //  display only those ones
+    axios.get('http://localhost:3000/shippings')
+    .then(response  => {
+      const shippingsArray = response.data.filter( data => {
+        return data.country === this.state.country
+      })
+      this.setState({
+        shippingOptions: shippingsArray
+      })
     })
     .catch(error => {
-      // console.log(error)
+      console.log(error)
     })
+
   }
 
+  selectShipping = (e) =>  {
+    this.setState({
+      shippingFees: parseInt(e.target.value, 10)
+    })
+  };
 
+  componentDidUpdate(prevProps, prevState) {
+
+  }
 
   render() {
     return (
       <React.Fragment>
         {!this.state.formIsComplete
-          && <CheckoutForm
-            state={this.state}
-            setForm={this.handleFormChange}
-            pickupOptions={this.selectPickupOption}
-            defaultEmail={this.state.email}
-            submitOrder={this.submitOrder} />}
+          && (
+            <React.Fragment>
+
+            <CheckoutForm
+              state={this.state}
+              setForm={this.handleFormChange}
+              setQuantity={this.setQuantity}
+              selectShipping={this.selectShipping}
+              defaultEmail={this.state.email}
+              submitOrder={this.submitOrder}
+              defineShippingOptions={this.defineShippingOptions} />
+            </React.Fragment>)}
 
         {this.state.showConfirmation  && <Confirmation confirmOrder={this.confirmOrder} /> }
       </React.Fragment>

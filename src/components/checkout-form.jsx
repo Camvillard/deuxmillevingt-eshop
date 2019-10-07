@@ -3,10 +3,12 @@ import axios from 'axios';
 
 const CheckoutForm = (props) => {
 
-  const initialValue = props.state.quantity * 50
+  // console.log(props.state)
+  const shippingOptions = props.state.shippingOptions
+  const calendarPrice = props.state.quantity * 52 || 0
+  const taxes = props.state.taxes
   const shippingFees = props.state.shippingFees
-  const taxes = initialValue * 0.14975
-  const totalAmount = taxes + initialValue
+  const totalAmount = (shippingFees + taxes + calendarPrice)
 
   return(
     <div className="checkout">
@@ -15,14 +17,13 @@ const CheckoutForm = (props) => {
 
         <div className="column is-five">
 
-          <input type="number" name="quantity" placeholder="3" onChange={props.setForm} />
+          <input type="number" name="quantity" placeholder="3" onChange={props.setQuantity} />
 
           <div className="order-pricing-details">
-            <p>valeur de la marchandise :  {initialValue} $</p>
-            <p>expédition : {shippingFees} </p>
+            <p>valeur de la marchandise : {calendarPrice} $</p>
+            <p>expédition : {shippingFees} $ </p>
             <p>taxes : {taxes} $</p>
-            <p>montant total :  {totalAmount} $ </p>
-
+            <p>montant total : {totalAmount} $ </p>
           </div>
 
         </div>
@@ -62,21 +63,25 @@ const CheckoutForm = (props) => {
               placeholder="ville"
               onBlur={props.setForm}/>
 
-            <select name="country" id="country" onChange={props.setForm}>
+            <select name="country" id="country" onChange={props.defineShippingOptions}>
+              <option defaultValue>choisir votre pays</option>
               <option value="Canada">Canada</option>
               <option value="US">US</option>
-              <option value="other">reste du monde</option>
+              <option value="Rest of the world">reste du monde</option>
             </select>
 
             <div className="form-group">
-              <input type="radio" id="colis-simple" name="livraison" value="colis simple" onChange={props.pickupOptions} />
-              <label htmlFor="colis-simple">colis simple</label>
+              {
+                shippingOptions.map( ship => {
+                  return(
+                    <div className="radio-form-group" key={ship.id}>
+                      <input type="radio" id={`shipping-${ship.id}`} name="shipping" value={ship.price_cents / 100} onChange={props.selectShipping} />
+                      <label htmlFor="colis-simple">{`${ship.name} (${ship.price_cents / 100}$)`}</label>
+                    </div>
+                  )
+                })
+              }
 
-              <input type="radio" id="colis-suivi" name="livraison" value="colis suivi" onChange={props.pickupOptions} />
-              <label htmlFor="colis-suivi">colis suivi</label>
-
-              <input type="radio" id="pickup" name="livraison" value="pickup" onChange={props.pickupOptions} />
-              <label htmlFor="pickup">ramassage en boutique</label>
             </div>
 
             <button>pré-commander</button>
