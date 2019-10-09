@@ -30,8 +30,14 @@ class OrderForm extends Component {
 
   submitOrder = (e)  => {
     e.preventDefault()
-    console.log(this.state)
-    // if (this.state.name && this.state.address && this.state.zipCode) {
+    if (this.state.name && this.state.address && this.state.zipCode) {
+      this.setState({
+        formIsComplete: true,
+        showConfirmation: true
+      })
+    } else {
+      alert('missing something')
+    }
     // //creating an order object
     // axios.post('http://localhost:3001/orders', {
     //   order: {
@@ -49,6 +55,10 @@ class OrderForm extends Component {
     // }
     // this.setPickupPrice()
   };
+
+  confirmOrder = () => {
+    console.log('confirm')
+  }
 
 
 
@@ -71,22 +81,6 @@ class OrderForm extends Component {
       taxes: withTaxes
     })
   }
-
-  // calculTotal = () => {
-  //   console.log('calcul total')
-  //   const calendarPrice =  parseInt(this.state.quantity * 52, 10)
-  //   // console.log('price :', calendarPrice)
-  //   const shipping = this.state.shippingFees
-  //   // console.log('shipping fees :', shipping)
-  //   const taxes = this.state.taxes
-  //   // console.log('taxes', withTaxes)
-  //   const total = shipping + taxes + calendarPrice
-  //   console.log('total', total)
-  //   this.setState({
-  //     totalAmount: total
-  //   })
-  //   console.log(this.state.totalAmount)
-  // }
 
   defineShippingOptions = (e) => {
     console.log(e.target.value)
@@ -117,9 +111,6 @@ class OrderForm extends Component {
     })
   };
 
-  componentDidUpdate(prevProps, prevState) {
-
-  }
 
   render() {
     return (
@@ -138,7 +129,8 @@ class OrderForm extends Component {
               defineShippingOptions={this.defineShippingOptions} />
             </React.Fragment>)}
 
-        {this.state.showConfirmation  && <Confirmation confirmOrder={this.confirmOrder} /> }
+        {this.state.showConfirmation &&
+          <Confirmation confirmOrder={this.confirmOrder} state={this.state} /> }
       </React.Fragment>
     );
   }

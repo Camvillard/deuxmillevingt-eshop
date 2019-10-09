@@ -4,6 +4,7 @@ import axios from "axios";
 
 //  components
 import OrderForm from "./components/order-form"
+import CheckoutForm from "./components/checkout-form";
 import Confirmation from "./components/confirmation"
 
 //  assets & style
@@ -14,45 +15,94 @@ class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
+      initiateUser: true,
       orderIsInitiated: false,
+      formIsComplete: false,
+      showConfirmation: false,
+      orderIsConfirmed: false,
+      orderIsPaid: false,
       email: '',
-      userId: null
+      country: '',
+      shippingFees: 0,
+      shippingOptions: [],
+      quantity: 0,
+      totalAmount: 0,
+      taxes: 0,
+      calendarPrice: 52
     }
   };
 
-  handleInputBlur = (e) => {
+  initiateUser = (e) => {
     this.setState({
       orderIsInitiated: true,
       email: e.target.value
     })
-    // this.initiateUser(e.target.value)
   };
 
-  initiateUser = (email) => {
-      // this.setState({
-      //   userId: email
-      // })
-    // calling the API to create a user
-    // that is gonna be used to create the order
-    // axios.post('http://localhost:3000/users', {
-    //   user: {
-    //     email: email
-    //   }
-    // })
-    // .then(response => {
-    //   // console.log('response : ', response)
-    // })
-    // .catch(error => {
-    //     console.log(error)
-    // })
+   handleFormChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
   };
+
+  defineShippingOptions = (e) => {
+    console.log(e.target.value)
+    this.setState({
+      country: e.target.value
+    })
+    // retrieve all existing shipping methods
+    // check for each one of them is the selected coutry is available
+    //  display only those ones
+    axios.get('http://localhost:3000/shippings')
+    .then(response  => {
+      const shippingsArray = response.data.filter( data => {
+        return data.country === this.state.country
+      })
+      this.setState({
+        shippingOptions: shippingsArray
+      })
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  };
+
+  selectShipping = (e) =>  {
+    this.setState({
+      shippingFees: parseInt(e.target.value, 10)
+    })
+  };
+
+  calculTaxes = (price) => {
+    const withTaxes = Math.floor((price * 0.14975)*100)/100
+    this.setState({
+      taxes: withTaxes
+    })
+  };
+
+  setQuantity = (e) => {
+    this.setState({
+      quantity: e.target.value
+    })
+    this.calculTaxes(e.target.value * 52)
+  };
+
+
+
+
 
 
   render(){
     return(
       <div>
-        <input type="email" onBlur={this.handleInputBlur} placeholder="adresse email"/>
-        {this.state.orderIsInitiated  && <OrderForm email={this.state.email} userId={this.state.userId} /> }
+
+      {this.state.initiateUser &&
+        <input type="email" onBlur={this.initiateUser} placeholder="adresse email"/> }
+
+      {this.state.orderIsInitiated &&
+        <OrderForm email={this.state.email} /> }
+
+
       </div>
 
     )

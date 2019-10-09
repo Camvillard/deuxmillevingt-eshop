@@ -9,8 +9,9 @@ class Confirmation extends Component {
   };
 
   render() {
+    console.log(this.props)
     return (
-      <div className="confirmation">
+      <div className="confirmation-page">
         <p onClick={this.props.confirmOrder}>confirmer</p>
       </div>
     );
