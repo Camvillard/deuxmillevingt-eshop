@@ -16,7 +16,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       initiateUser: true,
-      orderIsInitiated: false,
+      showOrderForm: false,
       formIsComplete: false,
       showConfirmation: false,
       orderIsConfirmed: false,
@@ -34,7 +34,8 @@ class App extends React.Component {
 
   initiateUser = (e) => {
     this.setState({
-      orderIsInitiated: true,
+      initiateUser: false,
+      showOrderForm: true,
       email: e.target.value
     })
   };
@@ -46,7 +47,6 @@ class App extends React.Component {
   };
 
   defineShippingOptions = (e) => {
-    console.log(e.target.value)
     this.setState({
       country: e.target.value
     })
@@ -68,13 +68,19 @@ class App extends React.Component {
   };
 
   selectShipping = (e) =>  {
+    const shippingMethod = e.target.id.substring(9)
     this.setState({
+      shippingMethod,
       shippingFees: parseInt(e.target.value, 10)
     })
+    this.calculTaxes({qty: this.state.quantity * 50, ship: parseInt(e.target.value, 10)})
   };
 
-  calculTaxes = (price) => {
-    const withTaxes = Math.floor((price * 0.14975)*100)/100
+  calculTaxes = ({qty, ship}) => {
+    const calendar = qty
+    const shipping = ship
+    console.log('taxes', calendar, shipping)
+    const withTaxes = Math.ceil(((calendar + shipping) * 0.14975)*100)/100
     this.setState({
       taxes: withTaxes
     })
@@ -84,12 +90,75 @@ class App extends React.Component {
     this.setState({
       quantity: e.target.value
     })
-    this.calculTaxes(e.target.value * 52)
+    this.calculTaxes({qty: e.target.value * 50, ship: this.state.shippingFees})
   };
 
+   confirmOrder = () => {
+    console.log('confirm')
+    console.log(this.state)
+    this.setState({
+      orderIsConfirmed: true
+    })
+    this.sendOrderToBackOffice(this.state)
+  };
 
+    // t.string "name"
+    // t.string "address"
+    // t.string "zip_code"
+    // t.string "country"
+    // t.string "city"
+    // t.string "email"
 
+  sendOrderToBackOffice = (state) => {
+    //  creating a user with the email address
+    axios.post('http://localhost:3001/users', {
+      name: this.state.name,
+      address: this.state.address,
+      zip_code: this.state.zipCode,
+      country: this.state.country,
+      city: this.state.city,
+      email: this.state.email
+    })
+    .then(response => {
+      const userId = response.data.id
+      //creating an order object
+      axios.post('http://localhost:3001/orders', {
+        order: {
+          price_cents: this.state.totalAmount,
+          shipping_id: parseInt(this.state.shippingMethod, 10),
+          user_id: userId
+        }
+      })
+      .then(response => {
+          console.log('response', response)
+      })
+      .catch(error => {
+          console.log(error)
+      })
+    })
+    .catch(error => {
+        console.log(error)
+    })
+  }
 
+  submitOrder = (e)  => {
+    e.preventDefault()
+
+    if (this.state.name && this.state.address && this.state.zipCode) {
+      const {quantity, taxes, shippingFees } = this.state
+      const amount = Math.ceil((quantity * 50 + taxes + shippingFees)*100)/100
+      this.setState({
+        initiateUser: false,
+        showOrderForm: false,
+        showConfirmation: true,
+        totalAmount: amount
+      })
+      console.log('submitted')
+    } else {
+      alert('missing something')
+    }
+
+  };
 
 
   render(){
@@ -99,9 +168,21 @@ class App extends React.Component {
       {this.state.initiateUser &&
         <input type="email" onBlur={this.initiateUser} placeholder="adresse email"/> }
 
-      {this.state.orderIsInitiated &&
-        <OrderForm email={this.state.email} /> }
+      {this.state.showOrderForm &&
+        <OrderForm
+          state={this.state}
+          setForm={this.handleFormChange}
+          setQuantity={this.setQuantity}
+          selectShipping={this.selectShipping}
+          defaultEmail={this.state.email}
+          submitOrder={this.submitOrder}
+          defineShippingOptions={this.defineShippingOptions}
+        /> }
 
+        {this.state.showConfirmation &&
+         <Confirmation
+           state={this.state}
+           confirmOrder={this.confirmOrder}/> }
 
       </div>
 
