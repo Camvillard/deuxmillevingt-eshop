@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 // internal components
-import CheckoutForm from "./checkout-form";
-import Confirmation from "./confirmation";
+// import CheckoutForm from "./checkout-form";
+// import Confirmation from "./confirmation";
 
 // styles & assets
 

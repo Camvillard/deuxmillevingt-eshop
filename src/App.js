@@ -1,11 +1,12 @@
 // external stuff
-import React from 'react';
+import React, {Fragment} from 'react';
 import axios from "axios";
+import {Elements, StripeProvider} from 'react-stripe-elements';
 
 //  components
 import OrderForm from "./components/order-form"
-import CheckoutForm from "./components/checkout-form";
-import Confirmation from "./components/confirmation"
+import Payment from "./components/payment"
+import Confirmation from "./components/confirmation";
 
 //  assets & style
 // import logo from './logo.svg';
@@ -17,7 +18,6 @@ class App extends React.Component {
     this.state = {
       initiateUser: true,
       showOrderForm: false,
-      formIsComplete: false,
       showConfirmation: false,
       orderIsConfirmed: false,
       orderIsPaid: false,
@@ -93,23 +93,26 @@ class App extends React.Component {
     this.calculTaxes({qty: e.target.value * 50, ship: this.state.shippingFees})
   };
 
-   confirmOrder = () => {
-    console.log('confirm')
-    console.log(this.state)
-    this.setState({
-      orderIsConfirmed: true
-    })
-    this.sendOrderToBackOffice(this.state)
+    submitOrder = (e)  => {
+    e.preventDefault()
+    if (this.state.name && this.state.address && this.state.zipCode) {
+      const {quantity, taxes, shippingFees } = this.state
+      const amount = Math.ceil((quantity * 50 + taxes + shippingFees)*100)/100
+      this.setState({
+        initiateUser: false,
+        showOrderForm: false,
+        showConfirmation: true,
+        totalAmount: amount
+      })
+      console.log('submitted')
+    } else {
+      alert('missing something')
+    }
   };
 
-    // t.string "name"
-    // t.string "address"
-    // t.string "zip_code"
-    // t.string "country"
-    // t.string "city"
-    // t.string "email"
 
-  sendOrderToBackOffice = (state) => {
+
+  confirmOrder = (state) => {
     //  creating a user with the email address
     axios.post('http://localhost:3001/users', {
       name: this.state.name,
@@ -122,9 +125,13 @@ class App extends React.Component {
     .then(response => {
       const userId = response.data.id
       //creating an order object
+      this.setState({
+        orderIsConfirmed: true,
+        showConfirmation: false
+      })
       axios.post('http://localhost:3001/orders', {
         order: {
-          price_cents: this.state.totalAmount,
+          price_cents: this.state.totalAmount * 100,
           shipping_id: parseInt(this.state.shippingMethod, 10),
           user_id: userId
         }
@@ -139,31 +146,14 @@ class App extends React.Component {
     .catch(error => {
         console.log(error)
     })
-  }
-
-  submitOrder = (e)  => {
-    e.preventDefault()
-
-    if (this.state.name && this.state.address && this.state.zipCode) {
-      const {quantity, taxes, shippingFees } = this.state
-      const amount = Math.ceil((quantity * 50 + taxes + shippingFees)*100)/100
-      this.setState({
-        initiateUser: false,
-        showOrderForm: false,
-        showConfirmation: true,
-        totalAmount: amount
-      })
-      console.log('submitted')
-    } else {
-      alert('missing something')
-    }
-
   };
+
 
 
   render(){
     return(
-      <div>
+
+      <Fragment>
 
       {this.state.initiateUser &&
         <input type="email" onBlur={this.initiateUser} placeholder="adresse email"/> }
@@ -184,7 +174,16 @@ class App extends React.Component {
            state={this.state}
            confirmOrder={this.confirmOrder}/> }
 
-      </div>
+        {this.state.orderIsConfirmed &&
+          (<StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
+              <Elements>
+            <Payment />
+           </Elements>
+           </StripeProvider>
+          )
+        }
+
+      </Fragment>
 
     )
   }
