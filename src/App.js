@@ -53,7 +53,7 @@ class App extends React.Component {
     // retrieve all existing shipping methods
     // check for each one of them is the selected coutry is available
     //  display only those ones
-    axios.get('http://localhost:3000/shippings')
+    axios.get('https://deuxmillevingt-data.herokuapp.com/shippings')
     .then(response  => {
       const shippingsArray = response.data.filter( data => {
         return data.country === this.state.country
@@ -114,7 +114,7 @@ class App extends React.Component {
 
   confirmOrder = (state) => {
     //  creating a user with the email address
-    axios.post('http://localhost:3001/users', {
+    axios.post('https://deuxmillevingt-data.herokuapp.com/users', {
       name: this.state.name,
       address: this.state.address,
       zip_code: this.state.zipCode,
@@ -129,7 +129,7 @@ class App extends React.Component {
         orderIsConfirmed: true,
         showConfirmation: false
       })
-      axios.post('http://localhost:3001/orders', {
+      axios.post('https://deuxmillevingt-data.herokuapp.com/orders', {
         order: {
           price_cents: this.state.totalAmount * 100,
           shipping_id: parseInt(this.state.shippingMethod, 10),
