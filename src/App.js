@@ -7,6 +7,7 @@ import {Elements, StripeProvider } from 'react-stripe-elements';
 import OrderForm from "./components/order-form"
 import Payment from "./components/payment"
 import Confirmation from "./components/confirmation";
+import SplashPage from "./components/splash-page";
 
 //  assets & style
 // import logo from './logo.svg';
@@ -35,8 +36,8 @@ class App extends React.Component {
   initiateUser = (e) => {
     this.setState({
       initiateUser: false,
-      showOrderForm: true,
-      email: e.target.value
+      showOrderForm: true
+      // email: e.target.value
     })
   };
 
@@ -142,8 +143,7 @@ class App extends React.Component {
 
       <Fragment>
 
-      {this.state.initiateUser &&
-        <input type="email" onBlur={this.initiateUser} placeholder="adresse email"/> }
+      {this.state.initiateUser && <SplashPage initiateUser={this.initiateUser} />}
 
       {this.state.showOrderForm &&
         <OrderForm
@@ -178,3 +178,5 @@ class App extends React.Component {
 
 
 export default App;
+
+// <input type="email" onBlur={this.initiateUser} placeholder="adresse email"/>
