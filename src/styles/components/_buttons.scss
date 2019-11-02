@@ -25,7 +25,7 @@
     top: 0;
     bottom: 0;
     left: 0;
-    width: 1px;
+    width: 2px;
     background: $dark-blue;
     transition: all 0.8s ease;
   }
@@ -34,9 +34,11 @@
 .button-left-border:hover {
   position: relative;
   padding-left: 12px;
+  color: $golden-taupe;
 
   &:before {
     transform: translateX(162px);
+    background: $golden-taupe;
   }
 }
 

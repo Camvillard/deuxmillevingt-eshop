@@ -40,33 +40,55 @@ class OrderForm extends Component {
     const totalAmount = Math.ceil((shippingFees + taxes + calendarPrice)*100)/100
 
     return(
-      <div className="checkout">
+      <div className="page order-page">
 
         <div className="grid 12-columns">
 
-          <div className="column is-five">
+          <div className="column is-five left-column">
 
-          <div className="controls control-less" onClick={this.reduceQuantity}><p>moins</p></div>
+          <h1 className="hide-on-mobile">pré-commande</h1>
 
-            <input
-              type="text"
-              name="quantity"
-              id="quantity-input"
-              defaultValue="0"
-              onChange={setQuantity} />
-
-          <div className="controls control-plus" onClick={this.increaseQuantity}><p>plus</p></div>
+            <img src="https://images.unsplash.com/photo-1543168256-4ae2229821f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3168&q=80" alt="calendar"/>
 
             <div className="order-pricing-details">
-              <p>valeur de la marchandise : {calendarPrice} $</p>
-              <p>expédition : {shippingFees} $ </p>
-              <p>taxes : {taxes} $</p>
-              <p>montant total : {totalAmount} $ </p>
+
+              <div className="order-detail-group">
+                <p>quantité :</p>
+
+                <div className="input-arrows-group">
+                  <div className="controls control-less" onClick={this.reduceQuantity}><p>-</p></div>
+                  <input
+                    type="text"
+                    name="quantity"
+                    id="quantity-input"
+                    defaultValue="0"
+                    onChange={setQuantity} />
+                  <div className="controls control-plus" onClick={this.increaseQuantity}><p>+</p></div>
+                </div>
+
+              </div>
+
+              <div className="order-detail-group">
+                <p>valeur de la marchandise :</p> <p> {calendarPrice} $</p>
+              </div>
+
+              <div className="order-detail-group">
+                <p>expédition :</p> <p> {shippingFees} $ </p>
+               </div>
+              <div className="order-detail-group">
+                <p>taxes :</p> <p> {taxes} $</p>
+              </div>
+
+              <div className="order-detail-group strong">
+                <p>montant total :</p> <p> {totalAmount} $ </p>
+              </div>
             </div>
 
           </div>
 
-          <div className="column is-seven">
+          <div className="column is-seven right-column">
+
+            <h1 className="hide-on-mobile">informations de livraison</h1>
 
             <form action="" onSubmit={submitOrder} className="form-block form-stroked">
 
@@ -89,20 +111,25 @@ class OrderForm extends Component {
                 placeholder="adresse /"
                 onBlur={setForm}/>
 
-              <input
-                type="text"
-                name="zipCode"
-                placeholder="zipcode /"
-                onBlur={setForm}/>
+              <div className="form-group-row">
+                <input
+                  type="text"
+                  name="zipCode"
+                  placeholder="zipcode /"
+                  onBlur={setForm}
+                  className="if-half"/>
 
-              <input
-                type="text"
-                name="city"
-                placeholder="ville /"
-                onBlur={setForm}/>
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="ville /"
+                  onBlur={setForm}
+                  className="if-half"/>
+              </div>
+
 
               <select name="country" id="country" onChange={defineShippingOptions}>
-                <option defaultValue>choisir votre pays /</option>
+                <option defaultValue className="red">choisir votre pays /</option>
                 <option value="Canada">Canada</option>
                 <option value="US">US</option>
                 <option value="Rest of the world">reste du monde</option>

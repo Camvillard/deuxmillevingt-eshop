@@ -1,13 +1,17 @@
 /* ------ COMPONENTS : FORMS ------ */
 
+
+// inputs & controls
+
 input,
 select,
 label {
   font-size: 1.4rem;
 }
 
-input {
-  margin-bottom: 16px;
+input, select {
+  margin-bottom: 24px;
+  height: 3.2rem;
 }
 
 .radio-form-group {
@@ -19,15 +23,68 @@ input {
 .form-block {
   display: flex;
   flex-direction: column;
-  width: 50%;
-  margin: auto;
+  width: 100%;
+  margin: 24px auto;
 }
+
+::placeholder {
+  color: $dark-blue;
+  opacity: 1 !important;
+  font-family: $accent-font;
+  font-size: 1.4rem;
+}
+
+
+// groups
+
+.input-arrows-group {
+  display: flex;
+
+  input {
+    width: 4rem;
+    border: none;
+    text-align: center;
+  }
+}
+
+.form-group-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .if-half {
+    width: 50%;
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+}
+
+
+
+// style for specific forms
 
 .form-stroked {
   input {
     border: none;
     border-bottom: 1px solid $dark-blue;
+    color: $teal-blue;
+    font-family:  $accent-font;
   }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    -webkit-text-fill-color: $teal-blue;
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
 
   input[type="radio"] {
     -webkit-appearance: none;
@@ -45,9 +102,21 @@ input {
     border: 1px solid $teal-blue;
   }
 
-  ::placeholder {
-    color: $dark-blue;
-    opacity: 1 !important;
+  input:active,
+  select:active,
+  input:hover,
+  select:hover,
+  input:focus,
+  select:focus {
+    outline: none;
+  }
+
+  select {
+    -webkit-appearance: none;
+    border: 0;
+    border-bottom: 1px solid $dark-blue;
+    background: none;
+    border-radius: 0;
     font-family: $accent-font;
     font-size: 1.4rem;
   }
@@ -64,7 +133,8 @@ input {
     font-size: 1.6rem;
   }
 
-  input {
+  input,
+  select {
     height: 4rem;
   }
 } // end of md-screen - 992px
@@ -73,8 +143,13 @@ input {
   input,
   select,
   label {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
+
+  ::placeholder {
+    font-size: 1.6rem;
+  }
+
 } // end of lg-screen - 1200px
 
 @media (min-width: $hg-screen) {

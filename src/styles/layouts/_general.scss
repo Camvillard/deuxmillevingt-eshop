@@ -53,7 +53,9 @@ p, button {
   font-size: 1.8rem;
 }
 
-
+.page {
+  min-height: 100vh;
+}
 
 
 @media (min-width: $sm-screen) {
