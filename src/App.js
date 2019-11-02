@@ -89,9 +89,9 @@ class App extends React.Component {
 
   setQuantity = (e) => {
     this.setState({
-      quantity: e.target.value
+      quantity: e
     })
-    this.calculTaxes({qty: e.target.value * 50, ship: this.state.shippingFees})
+    this.calculTaxes({qty: e * 50, ship: this.state.shippingFees})
   };
 
     submitOrder = (e)  => {

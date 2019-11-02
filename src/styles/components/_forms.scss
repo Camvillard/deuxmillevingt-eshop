@@ -10,12 +10,49 @@ input {
   margin-bottom: 16px;
 }
 
+.radio-form-group {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+}
+
 .form-block {
   display: flex;
   flex-direction: column;
   width: 50%;
   margin: auto;
 }
+
+.form-stroked {
+  input {
+    border: none;
+    border-bottom: 1px solid $dark-blue;
+  }
+
+  input[type="radio"] {
+    -webkit-appearance: none;
+    border: 1px solid $dark-blue;
+    width: 24px;
+    height: 24px;
+    margin-bottom: 0;
+    margin-right: 8px;
+  }
+
+  input[type="radio"]:active,
+  input[type="radio"]:focus, {
+    outline: none;
+    background: $teal-blue;
+    border: 1px solid $teal-blue;
+  }
+
+  ::placeholder {
+    color: $dark-blue;
+    opacity: 1 !important;
+    font-family: $accent-font;
+    font-size: 1.4rem;
+  }
+}
+
 
 @media (min-width: $sm-screen) {
 } // end of sm-screen - 768px

@@ -10,10 +10,20 @@ import axios from 'axios';
 
 class OrderForm extends Component {
 
+
+  reduceQuantity = (e) => {
+    const input = document.querySelector("#quantity-input")
+    input.value --
+    this.props.setQuantity(input.value)
+  };
+
+  increaseQuantity = (e) => {
+    const input = document.querySelector("#quantity-input")
+    input.value ++
+    this.props.setQuantity(input.value)
+  }
+
   render() {
-    // const state = this.props.state
-    // const setForm = this.props.setForm
-    // const submitOrder = this.props.submitOrder
     const {
       state,
       setForm,
@@ -36,11 +46,16 @@ class OrderForm extends Component {
 
           <div className="column is-five">
 
+          <div className="controls control-less" onClick={this.reduceQuantity}><p>moins</p></div>
+
             <input
-              type="number"
+              type="text"
               name="quantity"
-              placeholder="3"
+              id="quantity-input"
+              defaultValue="0"
               onChange={setQuantity} />
+
+          <div className="controls control-plus" onClick={this.increaseQuantity}><p>plus</p></div>
 
             <div className="order-pricing-details">
               <p>valeur de la marchandise : {calendarPrice} $</p>
@@ -53,41 +68,41 @@ class OrderForm extends Component {
 
           <div className="column is-seven">
 
-            <form action="" onSubmit={submitOrder} className="form-block">
+            <form action="" onSubmit={submitOrder} className="form-block form-stroked">
 
               <input
                 type="text"
                 name="name"
-                placeholder="nom, prénom"
+                placeholder="nom, prénom /"
                 onBlur={setForm}/>
 
               <input
                 type="email"
                 name="email"
-                placeholder="adresse email"
+                placeholder="adresse email /"
                 defaultValue={defaultEmail}
                 onBlur={setForm}/>
 
               <input
                 type="text"
                 name="address"
-                placeholder="adresse"
+                placeholder="adresse /"
                 onBlur={setForm}/>
 
               <input
                 type="text"
                 name="zipCode"
-                placeholder="code postale"
+                placeholder="zipcode /"
                 onBlur={setForm}/>
 
               <input
                 type="text"
                 name="city"
-                placeholder="ville"
+                placeholder="ville /"
                 onBlur={setForm}/>
 
               <select name="country" id="country" onChange={defineShippingOptions}>
-                <option defaultValue>choisir votre pays</option>
+                <option defaultValue>choisir votre pays /</option>
                 <option value="Canada">Canada</option>
                 <option value="US">US</option>
                 <option value="Rest of the world">reste du monde</option>
@@ -97,9 +112,9 @@ class OrderForm extends Component {
                 {
                   shippingOptions.map( ship => {
                     return(
-                      <div className="radio-form-group" key={ship.id}>
-                        <input type="radio" id={`shipping-${ship.id}`} name="shipping" value={ship.price_cents / 100} onChange={selectShipping} />
-                        <label htmlFor="colis-simple">{`${ship.name} (${ship.price_cents / 100}$)`}</label>
+                      <div className="radio-form-group" key={ship.id} onChange={selectShipping}>
+                        <input type="radio" id={`shipping-${ship.id}`} name="shipping" value={ship.price_cents / 100} />
+                        <label htmlFor="colis-simple" id={`shipping-${ship.id}`}>{`${ship.name} (${ship.price_cents / 100}$)`}</label>
                       </div>
                     )
                   })
@@ -107,7 +122,7 @@ class OrderForm extends Component {
 
               </div>
 
-              <button>pré-commander</button>
+              <button className="button button-left-border">pré-commander</button>
 
             </form>
 

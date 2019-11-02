@@ -1,0 +1,54 @@
+/* ------ COMPONENTS : BUTTONS ------ */
+
+.button {
+  border: none;
+  background: none;
+  -webkit-appearance: none;
+  text-align: left;
+  font-family: $accent-font;
+  color: $dark-blue;
+  font-size: 1.8rem;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+
+.button-left-border {
+  position: relative;
+  padding-left: 12px;
+  transition: all 0.8s ease;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    background: $dark-blue;
+    transition: all 0.8s ease;
+  }
+}
+
+.button-left-border:hover {
+  position: relative;
+  padding-left: 12px;
+
+  &:before {
+    transform: translateX(162px);
+  }
+}
+
+@media (min-width: $sm-screen) {
+} // end of sm-screen - 768px
+
+@media (min-width: $md-screen) {
+} // end of md-screen - 992px
+
+@media (min-width: $lg-screen) {
+} // end of lg-screen - 1200px
+
+@media (min-width: $hg-screen) {
+} // end of hg-screen - 1440px
+

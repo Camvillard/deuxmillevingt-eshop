@@ -1,8 +1,14 @@
 /* ------ INDEX : LAYOUTS ------ */
 
-@import "general";
-@import "grids";
-@import "splash-page";
+.image-column {
+  position: relative;
+
+  .badge {
+    position: absolute;
+    bottom: -40px;
+    right: 40px;
+  }
+}
 
 @media (min-width: $sm-screen) {
 } // end of sm-screen - 768px
