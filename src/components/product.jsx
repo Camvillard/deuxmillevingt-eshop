@@ -11,7 +11,7 @@ class Product extends React.Component {
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:3000/products')
+        axios.get('http://localhost:3001/products')
         .then(response => {
             console.log(response)
             this.setState({

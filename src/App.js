@@ -1,7 +1,7 @@
 // external stuff
 import React, {Fragment} from 'react';
 import axios from "axios";
-import {Elements, StripeProvider} from 'react-stripe-elements';
+import {Elements, StripeProvider } from 'react-stripe-elements';
 
 //  components
 import OrderForm from "./components/order-form"
@@ -53,7 +53,7 @@ class App extends React.Component {
     // retrieve all existing shipping methods
     // check for each one of them is the selected coutry is available
     //  display only those ones
-    axios.get('https://deuxmillevingt-data.herokuapp.com/shippings')
+    axios.get('http://localhost:3001/shippings')
     .then(response  => {
       const shippingsArray = response.data.filter( data => {
         return data.country === this.state.country
@@ -111,10 +111,10 @@ class App extends React.Component {
   };
 
 
-
-  confirmOrder = (state) => {
+    confirmOrder = (state) => {
     //  creating a user with the email address
-    axios.post('https://deuxmillevingt-data.herokuapp.com/users', {
+    console.log(this.state)
+    axios.post('http://localhost:3001/users', {
       name: this.state.name,
       address: this.state.address,
       zip_code: this.state.zipCode,
@@ -127,27 +127,14 @@ class App extends React.Component {
       //creating an order object
       this.setState({
         orderIsConfirmed: true,
-        showConfirmation: false
-      })
-      axios.post('https://deuxmillevingt-data.herokuapp.com/orders', {
-        order: {
-          price_cents: this.state.totalAmount * 100,
-          shipping_id: parseInt(this.state.shippingMethod, 10),
-          user_id: userId
-        }
-      })
-      .then(response => {
-          console.log('response', response)
-      })
-      .catch(error => {
-          console.log(error)
+        showConfirmation: false,
+        userId
       })
     })
     .catch(error => {
         console.log(error)
     })
   };
-
 
 
   render(){
@@ -175,11 +162,11 @@ class App extends React.Component {
            confirmOrder={this.confirmOrder}/> }
 
         {this.state.orderIsConfirmed &&
-          (<StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
-              <Elements>
-            <Payment />
-           </Elements>
-           </StripeProvider>
+          (<StripeProvider apiKey="pk_test_xEmvkQdoItwgBHiAlYOL9kpo">
+            <Elements>
+              <Payment payOrder={this.payOrder} order={this.state} />
+            </Elements>
+          </StripeProvider>
           )
         }
 

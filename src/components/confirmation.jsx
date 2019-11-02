@@ -1,25 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-// address: "5409 rue chabot"
-// calendarPrice: 52
-// city: "Montréal"
-// country: "Canada"
-// email: "hello@camillevillard.com"
-// formIsComplete: false
-// initiateUser: true
-// name: "camille villard"
-// orderIsConfirmed: false
-// orderIsPaid: false
-// quantity: "2"
-// shippingFees: 12
-// shippingMethod: "colis simple"
-// shippingOptions: (3) [{…}, {…}, {…}]
-// showConfirmation: true
-// showOrderForm: false
-// taxes: 15.57
-// totalAmount: 0
-// zipCode: "H2H1Z1"
 
 class Confirmation extends Component {
 
