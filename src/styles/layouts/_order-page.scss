@@ -6,8 +6,28 @@
     padding: 16px;
   }
 
+  img {
+    height: 42vh;
+    object-fit: cover;
+    width: 100%;
+  }
+
   .right-column {
     padding: 16px;
+  }
+
+
+}
+
+#quantity-input-controls {
+  margin-bottom: 32px;
+
+  p, input {
+    font-size: 1.6rem;
+  }
+
+  p.controls {
+    font-size: 1.8rem;
   }
 }
 
@@ -26,6 +46,7 @@
   display: flex;
   align-items: center;
   justify-content:  space-between;
+  margin-bottom: 4px;
 }
 
 @media (min-width: $sm-screen) {

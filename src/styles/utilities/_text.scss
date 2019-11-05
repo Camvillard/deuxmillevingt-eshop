@@ -9,13 +9,23 @@ h1 {
   font-size: 4.8rem;
 }
 
-span, p, input, li, a {
+h2 {
+  font-size: 4rem;
+}
+
+h3 {
+  font-size: 3.2rem;
+}
+
+span, p, input, li, a, button {
   font-size: 1.4rem;
 }
 
 p {
   margin: 0.4em 0;
 }
+
+
 
 @media (min-width: $sm-screen) {
 } // end of sm-screen - 768px
@@ -25,10 +35,10 @@ p {
 
 @media (min-width: $lg-screen) {
   h1 {
-    font-size: 7.2rem;
+    font-size: 8.4rem;
   }
 
-  span, p, input, li, a {
+  span, p, input, li, a, button {
     font-size: 1.8rem;
   }
 } // end of lg-screen - 1200px

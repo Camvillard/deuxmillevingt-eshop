@@ -39,6 +39,7 @@ class OrderForm extends Component {
     const shippingFees = state.shippingFees
     const totalAmount = Math.ceil((shippingFees + taxes + calendarPrice)*100)/100
 
+     console.log(state)
     return(
       <div className="page order-page">
 
@@ -52,7 +53,7 @@ class OrderForm extends Component {
 
             <div className="order-pricing-details">
 
-              <div className="order-detail-group">
+              <div className="order-detail-group" id="quantity-input-controls">
                 <p>quantité :</p>
 
                 <div className="input-arrows-group">
@@ -148,6 +149,12 @@ class OrderForm extends Component {
                 }
 
               </div>
+
+              {state.shippingMethod === "3" && (
+                <p className="">chez Boubhe Bée, 3772 Rue Ontario Est à Montréal</p>
+              )}
+
+
 
               <button className="button button-left-border">pré-commander</button>
 

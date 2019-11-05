@@ -1,12 +1,20 @@
-/* ------ INDEX : UTILITIES ------ */
+/* ------ UTILITIES : DISPLAY ------ */
 
-@import "text";
-@import "display";
+
+.hide-on-mobile {
+  display: none;
+}
+
+
 
 @media (min-width: $sm-screen) {
 } // end of sm-screen - 768px
 
 @media (min-width: $md-screen) {
+  .hide-on-mobile {
+    display: block;
+  }
+
 } // end of md-screen - 992px
 
 @media (min-width: $lg-screen) {

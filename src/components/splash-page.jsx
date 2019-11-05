@@ -6,16 +6,16 @@ class SplashPage extends React.Component {
   render() {
     const { initiateUser } = this.props
     return (
-      <div className="splash-page grid two-columns">
-        <div className="column is-one image-column">
+      <div className="splash-page grid lg-twelve-columns page">
+        <div className="column is-one lg-is-six image-column">
           <img src="https://images.unsplash.com/photo-1543168256-4ae2229821f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3168&q=80" alt="calendar"/>
           <div className="badge small blue"><p>50$</p></div>
         </div>
-        <div className="column is-one">
+        <div className="column is-one lg-is-six description-column">
           <h1>maxi calendrier</h1>
-          <p>
-            calendrier géant 2020
-          </p>
+          <h3>
+            calendrier 2020
+          </h3>
           <p>
             de janvier à décembre, avec un petit coin pour glisser toutes les notes du mois & un aperçu du mois suivant.
           </p>

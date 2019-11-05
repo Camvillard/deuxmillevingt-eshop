@@ -7,11 +7,15 @@
   }
 
   &.is-five {
-    grid-column-end: span 5;
+    grid-column: span 5;
+  }
+
+  &.is-five {
+    grid-column: span 6;
   }
 
   &.is-seven {
-    grid-column-end: span 7;
+    grid-column: span 7;
   }
 }
 
@@ -23,10 +27,8 @@
   .grid {
     display: grid;
     grid-gap: 16px;
-
-    &.two-columns {
-      grid-template-columns: repeat(8, 1fr);
-    }
+    grid-template-columns: repeat(8, 1fr);
+    align-items: stretch;
   }
 } // end of md-screen - 992px
 
@@ -34,6 +36,24 @@
   .grid {
     grid-gap: 24px;
     grid-template-columns: repeat(12, 1fr);
+  }
+
+  .column {
+    &.lg-is-one {
+      grid-column: span 1;
+    }
+
+    &.lg-is-five {
+      grid-column: span 5;
+    }
+
+    &.lg-is-six {
+      grid-column: span 6;
+    }
+
+    &.lg-is-seven {
+      grid-column: span 7;
+    }
   }
 } // end of lg-screen - 1200px
 

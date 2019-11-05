@@ -70,6 +70,7 @@ class App extends React.Component {
 
   selectShipping = (e) =>  {
     const shippingMethod = e.target.id.substring(9)
+    console.log(shippingMethod)
     this.setState({
       shippingMethod,
       shippingFees: parseInt(e.target.value, 10)
