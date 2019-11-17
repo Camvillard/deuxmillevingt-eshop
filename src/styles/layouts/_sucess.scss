@@ -1,0 +1,40 @@
+/* ------ LAYOUTS : SUCCESS ------ */
+
+
+.success-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40000000;
+  background: $golden-taupe;
+  display:  flex;
+  align-items: center;
+  padding: 24px;
+
+  p {
+    color: $dark-blue;
+    line-height: 1.4;
+  }
+
+  .email {
+    font-size: 1.3rem;
+    background: white;
+    color: $golden-taupe;
+    padding: 0 4px;
+    font-family: $accent-font;
+  }
+}
+
+@media (min-width: $sm-screen) {
+} // end of sm-screen - 768px
+
+@media (min-width: $md-screen) {
+} // end of md-screen - 992px
+
+@media (min-width: $lg-screen) {
+} // end of lg-screen - 1200px
+
+@media (min-width: $hg-screen) {
+} // end of hg-screen - 1440px

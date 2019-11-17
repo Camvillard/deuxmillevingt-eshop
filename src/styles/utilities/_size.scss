@@ -1,8 +1,8 @@
-/* ------ INDEX : UTILITIES ------ */
+/* ------ UTILITIES : SIZE ------ */
 
-@import "display";
-@import "size";
-@import "text";
+.min-height-100 {
+  min-height: 100vh;
+}
 
 @media (min-width: $sm-screen) {
 } // end of sm-screen - 768px

@@ -1,7 +1,13 @@
 /* ------ LAYOUTS : GRIDS ------ */
 
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 8px;
+}
 
 .column {
+  grid-column: span 1;
   &.is-one {
     grid-column: span 1;
   }
@@ -10,7 +16,7 @@
     grid-column: span 5;
   }
 
-  &.is-five {
+  &.is-six{
     grid-column: span 6;
   }
 
@@ -25,10 +31,11 @@
 
 @media (min-width: $md-screen) {
   .grid {
-    display: grid;
     grid-gap: 16px;
-    grid-template-columns: repeat(8, 1fr);
     align-items: stretch;
+    grid-template-columns: repeat(8, 1fr);
+    &.md-8-columns {
+    }
   }
 } // end of md-screen - 992px
 
@@ -36,6 +43,9 @@
   .grid {
     grid-gap: 24px;
     grid-template-columns: repeat(12, 1fr);
+
+    &.lg-12-columns {
+    }
   }
 
   .column {

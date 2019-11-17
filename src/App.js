@@ -1,11 +1,11 @@
 // external stuff
 import React, {Fragment} from 'react';
 import axios from "axios";
-import {Elements, StripeProvider } from 'react-stripe-elements';
+import { Elements, StripeProvider } from 'react-stripe-elements';
 
 //  components
 import OrderForm from "./components/order-form"
-import Payment from "./components/payment"
+// import Payment from "./components/payment"
 import Confirmation from "./components/confirmation";
 import SplashPage from "./components/splash-page";
 
@@ -21,15 +21,12 @@ class App extends React.Component {
       showOrderForm: false,
       showConfirmation: false,
       orderIsConfirmed: false,
-      orderIsPaid: false,
       email: '',
       country: '',
-      shippingFees: 0,
       shippingOptions: [],
       quantity: 0,
       totalAmount: 0,
-      taxes: 0,
-      calendarPrice: 52
+      taxes: 0
     }
   };
 
@@ -37,7 +34,6 @@ class App extends React.Component {
     this.setState({
       initiateUser: false,
       showOrderForm: true
-      // email: e.target.value
     })
   };
 
@@ -56,66 +52,72 @@ class App extends React.Component {
     //  display only those ones
     axios.get('http://localhost:3001/shippings')
     .then(response  => {
-      const shippingsArray = response.data.filter( data => {
-        return data.country === this.state.country
-      })
+      const shippingsArray = response.data.filter( data =>
+        data.country === this.state.country
+      )
       this.setState({
         shippingOptions: shippingsArray
       })
     })
     .catch(error => {
-      console.log(error)
+      alert(error)
     })
   };
 
   selectShipping = (e) =>  {
-    const shippingMethod = e.target.id.substring(9)
-    console.log(shippingMethod)
-    this.setState({
-      shippingMethod,
-      shippingFees: parseInt(e.target.value, 10)
+    const { quantity } = this.state
+    axios({
+      method: 'get',
+      url: `http://localhost:3001/shippings/${e.target.id}`
     })
-    this.calculTaxes({qty: this.state.quantity * 50, ship: parseInt(e.target.value, 10)})
+    .then( response => {
+      const selectedShipping = response.data
+      const price = quantity * 50
+      this.setState({
+        selectedShipping
+      })
+    this.calculTaxes(price, selectedShipping.price_cents/100)
+    })
+    // const shippingMethod = e.target.id.substring(9)
+    // this.setState({
+    //   shippingMethod,
+    //   shippingFees: parseInt(e.target.value, 10)
+    // })
   };
 
-  calculTaxes = ({qty, ship}) => {
-    const calendar = qty
-    const shipping = ship
-    console.log('taxes', calendar, shipping)
-    const withTaxes = Math.ceil(((calendar + shipping) * 0.14975)*100)/100
+  calculTaxes = (price, shipping = 0) => {
+    const withTaxes = Math.ceil(((price + shipping) * 0.14975)*100)/100
     this.setState({
       taxes: withTaxes
     })
   };
 
   setQuantity = (e) => {
+    const quantity = e
     this.setState({
-      quantity: e
+      quantity
     })
-    this.calculTaxes({qty: e * 50, ship: this.state.shippingFees})
+    this.calculTaxes(quantity * 50)
   };
 
-    submitOrder = (e)  => {
+  submitOrder = (e)  => {
     e.preventDefault()
     if (this.state.name && this.state.address && this.state.zipCode) {
-      const {quantity, taxes, shippingFees } = this.state
-      const amount = Math.ceil((quantity * 50 + taxes + shippingFees)*100)/100
+      const {quantity, taxes, selectedShipping } = this.state
+      const amount = Math.ceil((quantity * 50 + taxes + (selectedShipping.price_cents/100))*100)/100
       this.setState({
         initiateUser: false,
         showOrderForm: false,
         showConfirmation: true,
         totalAmount: amount
       })
-      console.log('submitted')
+      this.createUser()
     } else {
       alert('missing something')
     }
   };
 
-
-    confirmOrder = (state) => {
-    //  creating a user with the email address
-    console.log(this.state)
+  createUser = () => {
     axios.post('http://localhost:3001/users', {
       name: this.state.name,
       address: this.state.address,
@@ -128,15 +130,22 @@ class App extends React.Component {
       const userId = response.data.id
       //creating an order object
       this.setState({
-        orderIsConfirmed: true,
-        showConfirmation: false,
+        ...this.state,
         userId
       })
     })
     .catch(error => {
         console.log(error)
     })
-  };
+  }
+
+
+  //   confirmOrder = (state) => {
+  //   //  creating a user with the email address
+  //   console.log(this.state)
+
+  // };
+
 
 
   render(){
@@ -158,18 +167,14 @@ class App extends React.Component {
         /> }
 
         {this.state.showConfirmation &&
-         <Confirmation
-           state={this.state}
-           confirmOrder={this.confirmOrder}/> }
-
-        {this.state.orderIsConfirmed &&
           (<StripeProvider apiKey="pk_test_xEmvkQdoItwgBHiAlYOL9kpo">
             <Elements>
-              <Payment payOrder={this.payOrder} order={this.state} />
+              <Confirmation
+                 state={this.state}/>
             </Elements>
           </StripeProvider>
           )
-        }
+         }
 
       </Fragment>
 
@@ -179,5 +184,14 @@ class App extends React.Component {
 
 
 export default App;
+
+        // {this.state.orderIsConfirmed &&
+        //   (<StripeProvider apiKey="pk_test_xEmvkQdoItwgBHiAlYOL9kpo">
+        //     <Elements>
+        //       <Payment payOrder={this.payOrder} order={this.state} />
+        //     </Elements>
+        //   </StripeProvider>
+        //   )
+        // }
 
 // <input type="email" onBlur={this.initiateUser} placeholder="adresse email"/>

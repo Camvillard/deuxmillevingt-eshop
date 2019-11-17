@@ -50,6 +50,10 @@
       height: calc(100vh - 64px);
     }
   }
+
+  .description-column {
+    padding: 32px;
+  }
 } // end of lg-screen - 1200px
 
 @media (min-width: $hg-screen) {

@@ -10,17 +10,15 @@ import axios from 'axios';
 
 class OrderForm extends Component {
 
-
-  reduceQuantity = (e) => {
+  changeQuantity = (e) => {
     const input = document.querySelector("#quantity-input")
-    input.value --
+    e.target.dataset.action === "increase" ? input.value ++ : input.value --
     this.props.setQuantity(input.value)
-  };
+  }
 
-  increaseQuantity = (e) => {
-    const input = document.querySelector("#quantity-input")
-    input.value ++
-    this.props.setQuantity(input.value)
+
+  componentDidMount() {
+    window.scrollTo(0,0);
   }
 
   render() {
@@ -31,23 +29,24 @@ class OrderForm extends Component {
       setQuantity,
       defaultEmail,
       defineShippingOptions,
-      selectShipping
+      selectShipping,
+      selectedShipping
       } = this.props
+     console.log(state)
     const shippingOptions = state.shippingOptions
     const calendarPrice = state.quantity * 50 || 0
     const taxes = state.taxes
-    const shippingFees = state.shippingFees
+    const shippingFees = state.selectedShipping ? state.selectedShipping.price_cents /100 : 0
     const totalAmount = Math.ceil((shippingFees + taxes + calendarPrice)*100)/100
 
-     console.log(state)
     return(
       <div className="page order-page">
 
-        <div className="grid 12-columns">
+        <div className="grid md-8-columns lg-12-columns min-height-100">
 
-          <div className="column is-five left-column">
+          <div className="column is-one lg-is-five left-column">
 
-          <h1 className="hide-on-mobile">pré-commande</h1>
+          <h3 className="hide-on-mobile">pré-commande</h3>
 
             <img src="https://images.unsplash.com/photo-1543168256-4ae2229821f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3168&q=80" alt="calendar"/>
 
@@ -57,14 +56,14 @@ class OrderForm extends Component {
                 <p>quantité :</p>
 
                 <div className="input-arrows-group">
-                  <div className="controls control-less" onClick={this.reduceQuantity}><p>-</p></div>
+                  <p className="quantity-control controls control-less" data-action="reduce" onClick={this.changeQuantity}>-</p>
                   <input
                     type="text"
                     name="quantity"
                     id="quantity-input"
                     defaultValue="0"
                     onChange={setQuantity} />
-                  <div className="controls control-plus" onClick={this.increaseQuantity}><p>+</p></div>
+                  <p className="quantity-control controls control-plus" data-action="increase" onClick={this.changeQuantity}>+</p>
                 </div>
 
               </div>
@@ -87,7 +86,7 @@ class OrderForm extends Component {
 
           </div>
 
-          <div className="column is-seven right-column">
+          <div className="column is-one lg-is-six right-column">
 
             <h1 className="hide-on-mobile">informations de livraison</h1>
 
@@ -141,7 +140,7 @@ class OrderForm extends Component {
                   shippingOptions.map( ship => {
                     return(
                       <div className="radio-form-group" key={ship.id} onChange={selectShipping}>
-                        <input type="radio" id={`shipping-${ship.id}`} name="shipping" value={ship.price_cents / 100} />
+                        <input type="radio" id={`${ship.id}`} name="shipping" value={ship.price_cents / 100} />
                         <label htmlFor="colis-simple" id={`shipping-${ship.id}`}>{`${ship.name} (${ship.price_cents / 100}$)`}</label>
                       </div>
                     )
@@ -151,7 +150,7 @@ class OrderForm extends Component {
               </div>
 
               {state.shippingMethod === "3" && (
-                <p className="">chez Boubhe Bée, 3772 Rue Ontario Est à Montréal</p>
+                <p className="">chez Bouche Bée, 3772 Rue Ontario Est à Montréal</p>
               )}
 
 

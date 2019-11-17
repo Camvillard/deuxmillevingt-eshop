@@ -6,7 +6,7 @@ class SplashPage extends React.Component {
   render() {
     const { initiateUser } = this.props
     return (
-      <div className="splash-page grid lg-twelve-columns page">
+      <div className="splash-page grid lg-12-columns page">
         <div className="column is-one lg-is-six image-column">
           <img src="https://images.unsplash.com/photo-1543168256-4ae2229821f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3168&q=80" alt="calendar"/>
           <div className="badge small blue"><p>50$</p></div>

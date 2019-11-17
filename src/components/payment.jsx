@@ -14,6 +14,9 @@ class Payment extends Component {
   constructor(props) {
     super(props)
     this.submitOrder = this.submitOrder.bind(this);
+    this.state = {
+      orderIsPaid: false
+    }
   }
 
 
@@ -37,7 +40,9 @@ class Payment extends Component {
       order
     })
     .then(response => {
-        console.log('response', response)
+        this.setState({
+          orderIsPaid: true
+        })
     })
     .catch(error => {
         console.log(error)
@@ -47,10 +52,26 @@ class Payment extends Component {
 
 
   render() {
+    const style = {
+      base: {
+        padding: '10px 12px',
+        color: '#32325d',
+        fontFamily: 'gemeli-Mono, monospace',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#BC9B77'
+        },
+      },
+      invalid: {
+        color: '#fa755a',
+    }
+
+    }
     return (
-      <div className="payment-page">
-        <p>payer l'achat</p>
-        <CardElement />
+      <div className="payment-page  page">
+        <h1>payer la commande</h1>
+        <CardElement style={style} />
         <button onClick={this.submitOrder}>Purchase</button>
       </div>
     );

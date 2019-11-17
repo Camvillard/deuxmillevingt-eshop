@@ -2,8 +2,10 @@
 
 @import "general";
 @import "grids";
+@import "payment-page";
 @import "order-page";
 @import "splash-page";
+@import "sucess";
 
 @media (min-width: $sm-screen) {
 } // end of sm-screen - 768px
