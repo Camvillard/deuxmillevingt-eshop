@@ -79,10 +79,9 @@ class Confirmation extends Component {
     return (
       <Fragment>
         <div className="page confirmation-page">
+          <h3>confirmer la commande</h3>
           <div className="grid content">
-
-            <div className="column is-one lg-is-five left-column">
-              <h3>confirmer la commande</h3>
+            <div className="column is-one left-column">
               <p className="confirmation-title">livrer à :</p>
               <div className="infos-customer">
                 <p>{name}</p>
@@ -96,15 +95,16 @@ class Confirmation extends Component {
               </div>
               <p className="confirmation-title">quantité :</p>
               <p>{`${quantity} ${quantity > 1 ? 'maxis calendriers' : 'maxi calendrier'}`}</p>
-            </div>
-
-            <div className="column is-one lg-is-seven right-column">
               <p className="confirmation-title price total-amount">total de la commande :</p>
               <p>{totalAmount} $</p>
               <div className="card-form">
                 <CardElement style={style} hideIcon={true} />
               </div>
               <p onClick={this.submitOrder} className="button button-left-border">confirmer & payer la commande</p>
+            </div>
+
+            <div className="column is-one lg-is-five right-column">
+              <img src="https://images.unsplash.com/photo-1543168256-4ae2229821f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3168&q=80" alt="calendar"/>
             </div>
 
           </div>
