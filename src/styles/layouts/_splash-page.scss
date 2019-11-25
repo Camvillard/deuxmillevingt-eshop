@@ -15,19 +15,40 @@
 }
 
 .description-column {
-  margin-top: 32px;
+  margin-top: 8px;
   padding: 16px;
 
+  h1 {
+    font-size:  4.8rem;
+  }
+
   h3 {
-    font-size: 2.4rem;
-    margin: 1em 0 0.4em;
+    font-size: 3rem;
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-weight: 300;
   }
 
   p:last-child {
     margin: 32px 0;
   }
-
 }
+
+.details-page {
+
+  .first-image img{
+    width: 62vw;
+    margin: 48px 24vw;
+  }
+
+  .second-image img{
+    width: 40vw;
+    height: 40vw;
+    margin: 48px 10vw;
+  }
+}
+
+
 
 @media (min-width: $sm-screen) {
 } // end of sm-screen - 768px
@@ -37,23 +58,53 @@
 
 @media (min-width: $lg-screen) {
   .image-column {
-    // background: $teal-blue;
-    padding: 32px;
 
     .badge {
       position: absolute;
-      top: 48px;
-      right: 48px;
+      bottom: 240px;
+      right: -40px;
     }
 
     img {
-      height: calc(100vh - 64px);
+      height: 100vh;
     }
   }
 
   .description-column {
     padding: 32px;
+    align-self: end;
+    margin-bottom: 48px;
   }
+
+
+  .details-page {
+
+    .image-column {
+      padding: 32px;
+    }
+
+    .image-column img {
+      height: calc(100vh - 64px);
+    }
+
+    .first-image img{
+      width: 62vw;
+      margin: 48px 24vw;
+    }
+
+    .second-image img{
+      width: 40vw;
+      height: 40vw;
+      margin: 48px 10vw;
+    }
+
+    .badge {
+      position: absolute;
+      top: 80px;
+      right: -40px;
+    }
+  }
+
 } // end of lg-screen - 1200px
 
 @media (min-width: $hg-screen) {

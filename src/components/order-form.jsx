@@ -48,7 +48,7 @@ class OrderForm extends Component {
 
           <h3 className="hide-on-mobile">pré-commande</h3>
 
-            <img src="https://images.unsplash.com/photo-1543168256-4ae2229821f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3168&q=80" alt="calendar"/>
+            <img src="https://res.cloudinary.com/camvillard/image/upload/v1574703096/calendrier/cdltbisou_calendrier-2020.jpg" alt="calendar"/>
 
             <div className="order-pricing-details">
 

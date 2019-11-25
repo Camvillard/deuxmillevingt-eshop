@@ -8,6 +8,7 @@ import OrderForm from "./components/order-form"
 // import Payment from "./components/payment"
 import Confirmation from "./components/confirmation";
 import SplashPage from "./components/splash-page";
+import DetailsPage from "./components/details-page";
 
 //  assets & style
 // import logo from './logo.svg';
@@ -18,6 +19,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       initiateUser: true,
+      showDetails: false,
       showOrderForm: false,
       showConfirmation: false,
       orderIsConfirmed: false,
@@ -31,8 +33,17 @@ class App extends React.Component {
   };
 
   initiateUser = (e) => {
+    console.log('prout')
     this.setState({
       initiateUser: false,
+      showDetails: true
+    })
+  };
+
+  showDetails = (e) => {
+    console.log('re prout')
+    this.setState({
+      showDetails: false,
       showOrderForm: true
     })
   };
@@ -140,13 +151,6 @@ class App extends React.Component {
   }
 
 
-  //   confirmOrder = (state) => {
-  //   //  creating a user with the email address
-  //   console.log(this.state)
-
-  // };
-
-
 
   render(){
     return(
@@ -154,6 +158,7 @@ class App extends React.Component {
       <Fragment>
 
       {this.state.initiateUser && <SplashPage initiateUser={this.initiateUser} />}
+      {this.state.showDetails && <DetailsPage showDetails={this.showDetails} />}
 
       {this.state.showOrderForm &&
         <OrderForm
