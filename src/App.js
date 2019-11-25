@@ -172,7 +172,7 @@ class App extends React.Component {
         /> }
 
         {this.state.showConfirmation &&
-          (<StripeProvider apiKey="pk_test_xEmvkQdoItwgBHiAlYOL9kpo">
+          (<StripeProvider apiKey={process.env.REACT_APP_STRIPE_API_KEY}>
             <Elements>
               <Confirmation
                  state={this.state}/>
@@ -189,14 +189,3 @@ class App extends React.Component {
 
 
 export default App;
-
-        // {this.state.orderIsConfirmed &&
-        //   (<StripeProvider apiKey="pk_test_xEmvkQdoItwgBHiAlYOL9kpo">
-        //     <Elements>
-        //       <Payment payOrder={this.payOrder} order={this.state} />
-        //     </Elements>
-        //   </StripeProvider>
-        //   )
-        // }
-
-// <input type="email" onBlur={this.initiateUser} placeholder="adresse email"/>
