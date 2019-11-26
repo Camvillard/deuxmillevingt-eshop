@@ -32,7 +32,6 @@
 @media (min-width: $md-screen) {
   .grid {
     grid-gap: 16px;
-    align-items: stretch;
     grid-template-columns: repeat(8, 1fr);
     &.md-8-columns {
     }

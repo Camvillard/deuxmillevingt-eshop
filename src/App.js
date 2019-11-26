@@ -33,7 +33,6 @@ class App extends React.Component {
   };
 
   initiateUser = (e) => {
-    console.log('prout')
     this.setState({
       initiateUser: false,
       showDetails: true
@@ -41,7 +40,6 @@ class App extends React.Component {
   };
 
   showDetails = (e) => {
-    console.log('re prout')
     this.setState({
       showDetails: false,
       showOrderForm: true
@@ -61,7 +59,7 @@ class App extends React.Component {
     // retrieve all existing shipping methods
     // check for each one of them is the selected coutry is available
     //  display only those ones
-    axios.get('http://localhost:3001/shippings')
+    axios.get(`https://deuxmillevingt-data.herokuapp.com/shippings`)
     .then(response  => {
       const shippingsArray = response.data.filter( data =>
         data.country === this.state.country
@@ -79,7 +77,7 @@ class App extends React.Component {
     const { quantity } = this.state
     axios({
       method: 'get',
-      url: `http://localhost:3001/shippings/${e.target.id}`
+      url: `https://deuxmillevingt-data.herokuapp.com/shippings/${e.target.id}`
     })
     .then( response => {
       const selectedShipping = response.data
@@ -129,7 +127,7 @@ class App extends React.Component {
   };
 
   createUser = () => {
-    axios.post('http://localhost:3001/users', {
+    axios.post('https://deuxmillevingt-data.herokuapp.com/users', {
       name: this.state.name,
       address: this.state.address,
       zip_code: this.state.zipCode,

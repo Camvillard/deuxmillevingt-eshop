@@ -1,6 +1,7 @@
 // external librairies
 import React, {Component} from 'react';
 import axios from 'axios';
+import Slider from "react-slick";
 
 // internal components
 // import CheckoutForm from "./checkout-form";
@@ -29,24 +30,25 @@ class OrderForm extends Component {
       setQuantity,
       defaultEmail,
       defineShippingOptions,
-      selectShipping,
-      selectedShipping
+      selectShipping
       } = this.props
-     console.log(state)
     const shippingOptions = state.shippingOptions
     const calendarPrice = state.quantity * 50 || 0
     const taxes = state.taxes
     const shippingFees = state.selectedShipping ? state.selectedShipping.price_cents /100 : 0
     const totalAmount = Math.ceil((shippingFees + taxes + calendarPrice)*100)/100
-
+    const settings = {
+          dots: true,
+          infinite: true,
+          slidesToShow: 1,
+          slidesToScroll: 1
+        };
     return(
       <div className="page order-page">
 
         <div className="grid md-8-columns lg-12-columns min-height-100">
 
           <div className="column is-one lg-is-five left-column">
-
-          <h3 className="hide-on-mobile">pré-commande</h3>
 
             <img src="https://res.cloudinary.com/camvillard/image/upload/v1574703096/calendrier/cdltbisou_calendrier-2020.jpg" alt="calendar"/>
 

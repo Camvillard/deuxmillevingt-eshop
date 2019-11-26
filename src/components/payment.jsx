@@ -36,7 +36,7 @@ class Payment extends Component {
       user_id: userId
     }
     console.log(order)
-    await axios.post('http://localhost:3001/orders', {
+    await axios.post('https://deuxmillevingt-data.herokuapp.com/orders', {
       order
     })
     .then(response => {

@@ -31,7 +31,7 @@ class Confirmation extends Component {
       shipping_id: selectedShipping.id,
       user_id: userId
     }
-    await axios.post('http://localhost:3001/orders', {
+    await axios.post('https://deuxmillevingt-data.herokuapp.com/orders', {
       order
     })
     .then(response => {
@@ -104,7 +104,7 @@ class Confirmation extends Component {
             </div>
 
             <div className="column is-one lg-is-five right-column">
-              <img src="https://images.unsplash.com/photo-1543168256-4ae2229821f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3168&q=80" alt="calendar"/>
+              <img src="https://res.cloudinary.com/camvillard/image/upload/v1574703096/calendrier/calendrier-2020_4.jpg" alt="calendar"/>
             </div>
 
           </div>

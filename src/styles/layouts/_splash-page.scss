@@ -48,6 +48,18 @@
   }
 }
 
+.details-column {
+  padding: 16px;
+
+  h1 {
+    font-size: 3.6rem;
+  }
+
+  p:last-child {
+    margin: 32px 0;
+  }
+}
+
 
 
 @media (min-width: $sm-screen) {
@@ -70,7 +82,8 @@
     }
   }
 
-  .description-column {
+  .description-column,
+  .details-column {
     padding: 32px;
     align-self: end;
     margin-bottom: 48px;
@@ -101,7 +114,7 @@
     .badge {
       position: absolute;
       top: 80px;
-      right: -40px;
+      right: 0px;
     }
   }
 
