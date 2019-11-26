@@ -20,9 +20,9 @@ class DetailsPage extends React.Component {
               de janvier à décembre, avec un petit coin pour glisser toutes les notes du mois & un aperçu du mois suivant.
             </p>
             <p>24’ x 32’ (environ 60 x 80 cm)</p>
-            <p>imprimé sur un papier blanc lisse. quatorze feuilles brochées, le tout perforé pour pouvoir être accroché au mur facilement.</p>
+            <p>imprimé sur un papier blanc lisse ; quatorze feuilles brochées, le tout perforé pour pouvoir être accroché au mur facilement.</p>
             <p>attention, le calendrier est en pré-commande : les expéditions se feront aux alentours du 15 décembre. vous serez bien sûr averti(e)s par mail, parce que bon, c’est quand même pas cool autrement.</p>
-            <p><span onClick={showDetails} className="button button-left-border">pré commander</span></p>
+            <p><span onClick={showDetails} className="button button-left-border">pré-commander</span></p>
           </div>
         </div>
 
