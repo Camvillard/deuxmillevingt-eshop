@@ -87,11 +87,6 @@ class App extends React.Component {
       })
     this.calculTaxes(price, selectedShipping.price_cents/100)
     })
-    // const shippingMethod = e.target.id.substring(9)
-    // this.setState({
-    //   shippingMethod,
-    //   shippingFees: parseInt(e.target.value, 10)
-    // })
   };
 
   calculTaxes = (price, shipping = 0) => {
@@ -151,6 +146,7 @@ class App extends React.Component {
 
 
   render(){
+    console.log(process.env.REACT_APP_STRIPE_API_KEY)
     return(
 
       <Fragment>
