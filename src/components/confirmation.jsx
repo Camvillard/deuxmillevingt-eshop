@@ -55,6 +55,7 @@ class Confirmation extends Component {
       zipCode,
       selectedShipping
     } = this.props.state
+    console.log("email", email)
     const calendarPrice = quantity * 50
     const shippingFees = selectedShipping.price_cents / 100
     const totalAmount = Math.ceil((calendarPrice + taxes + shippingFees)*100)/100
@@ -77,6 +78,7 @@ class Confirmation extends Component {
     }
 
     return (
+
       <Fragment>
         <div className="page confirmation-page">
           <h3>confirmer la commande</h3>
