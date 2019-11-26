@@ -146,11 +146,10 @@ class OrderForm extends Component {
 
               </div>
 
-              {state.selectedShipping && state.selectedShipping.id === "3" && (
-                <p className="">chez Bouche Bée, 3772 Rue Ontario Est à Montréal</p>
-              )}
-
-
+              {state.selectedShipping && state.selectedShipping.id === "3" ?
+                <p className="">chez Bouche Bée, 3772 Rue Ontario Est à Montréal</p> :
+                <span></span>
+              }
 
               <button className="button button-left-border">pré-commander</button>
 
