@@ -31,7 +31,6 @@ class OrderForm extends Component {
       defineShippingOptions,
       selectShipping
       } = this.props
-    console.log(state)
     const shippingOptions = state.shippingOptions
     const calendarPrice = state.quantity * 50 || 0
     const taxes = state.taxes
@@ -146,9 +145,9 @@ class OrderForm extends Component {
 
               </div>
 
-              {state.selectedShipping && state.selectedShipping.id === "3" ?
-                <p className="">chez Bouche Bée, 3772 Rue Ontario Est à Montréal</p> :
-                <span></span>
+              {state.selectedShipping && state.selectedShipping.id === 3 && (
+                <p className="shipping-note">chez Bouche Bée, 3772 Rue Ontario Est à Montréal</p>
+                )
               }
 
               <button className="button button-left-border">pré-commander</button>
