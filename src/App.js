@@ -146,7 +146,6 @@ class App extends React.Component {
 
 
   render(){
-    console.log(process.env.REACT_APP_STRIPE_API_KEY)
     return(
 
       <Fragment>
