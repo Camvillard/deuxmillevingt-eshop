@@ -146,7 +146,7 @@ class OrderForm extends Component {
 
               </div>
 
-              {state.shippingMethod === "3" && (
+              {state.selectedShipping.id === "3" && (
                 <p className="">chez Bouche Bée, 3772 Rue Ontario Est à Montréal</p>
               )}
 
