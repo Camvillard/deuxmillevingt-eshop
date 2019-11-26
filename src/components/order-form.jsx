@@ -17,7 +17,6 @@ class OrderForm extends Component {
     this.props.setQuantity(input.value)
   }
 
-
   componentDidMount() {
     window.scrollTo(0,0);
   }
@@ -32,17 +31,13 @@ class OrderForm extends Component {
       defineShippingOptions,
       selectShipping
       } = this.props
+    console.log(state)
     const shippingOptions = state.shippingOptions
     const calendarPrice = state.quantity * 50 || 0
     const taxes = state.taxes
     const shippingFees = state.selectedShipping ? state.selectedShipping.price_cents /100 : 0
     const totalAmount = Math.ceil((shippingFees + taxes + calendarPrice)*100)/100
-    const settings = {
-          dots: true,
-          infinite: true,
-          slidesToShow: 1,
-          slidesToScroll: 1
-        };
+
     return(
       <div className="page order-page">
 
