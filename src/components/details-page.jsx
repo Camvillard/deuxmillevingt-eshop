@@ -22,7 +22,7 @@ class DetailsPage extends React.Component {
             <p>24’ x 32’ (environ 60 x 80 cm)</p>
             <p>imprimé sur un papier blanc lisse ; quatorze feuilles brochées, le tout perforé pour pouvoir être accroché au mur facilement.</p>
             <p>attention, le calendrier est en pré-commande : les expéditions se feront aux alentours du 15 décembre. vous serez bien sûr averti(e)s par mail, parce que bon, c’est quand même pas cool autrement.</p>
-            <p>possibilité de récupérer le calendrier chez la fabuleuse boutique Bouche Bée, dans Hochelaga, à partir des mêmes dates.</p>
+            <p>possibilité de récupérer le calendrier chez la fabuleuse boutique <a href="https://bouche-bee.ca/">Bouche Bée</a>, dans Hochelaga, Montréal, à partir des mêmes dates.</p>
             <p><span onClick={showDetails} className="button button-left-border">pré-commander</span></p>
           </div>
         </div>
