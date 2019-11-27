@@ -18,25 +18,27 @@ class Confirmation extends Component {
     }
   }
 
-
   async submitOrder() {
-    console.log('prout')
     this.setState({
       buttonIsDisabled: true
     })
     const {
       totalAmount,
       selectedShipping,
-      userId
+      userId,
+      quantity
     } = this.props.state
+    console.log(quantity)
     const chargeToken = await this.props.stripe.createToken({name: 'Name'})
     const order = {
       token: chargeToken.token.id,
       price_cents: totalAmount * 100,
       shipping_id: selectedShipping.id,
-      user_id: userId
+      user_id: userId,
+      quantity: parseInt(quantity, 10)
     }
-    await axios.post('https://deuxmillevingt-data.herokuapp.com/orders', {
+    console.log(order)
+    await axios.post('https://deuxmillevingt.netlify.com/orders', {
       order
     })
     .then(response => {
@@ -60,7 +62,6 @@ class Confirmation extends Component {
       zipCode,
       selectedShipping
     } = this.props.state
-    console.log("email", email)
     const calendarPrice = quantity * 50
     const shippingFees = selectedShipping.price_cents / 100
     const totalAmount = Math.ceil((calendarPrice + taxes + shippingFees)*100)/100

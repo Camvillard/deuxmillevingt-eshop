@@ -59,7 +59,7 @@ class App extends React.Component {
     // retrieve all existing shipping methods
     // check for each one of them is the selected coutry is available
     //  display only those ones
-    axios.get(`https://deuxmillevingt-data.herokuapp.com/shippings`)
+    axios.get(`https://deuxmillevingt.netlify.com/shippings`)
     .then(response  => {
       const shippingsArray = response.data.filter( data =>
         data.country === this.state.country
@@ -77,7 +77,7 @@ class App extends React.Component {
     const { quantity } = this.state
     axios({
       method: 'get',
-      url: `https://deuxmillevingt-data.herokuapp.com/shippings/${e.target.id}`
+      url: `https://deuxmillevingt.netlify.com/shippings/${e.target.id}`
     })
     .then( response => {
       const selectedShipping = response.data
@@ -122,7 +122,7 @@ class App extends React.Component {
   };
 
   createUser = () => {
-    axios.post('https://deuxmillevingt-data.herokuapp.com/users', {
+    axios.post('https://deuxmillevingt.netlify.com/users', {
       name: this.state.name,
       address: this.state.address,
       zip_code: this.state.zipCode,
