@@ -13,12 +13,17 @@ class Confirmation extends Component {
     super(props)
     this.submitOrder = this.submitOrder.bind(this);
     this.state = {
-      showSuccess: false
+      showSuccess: false,
+      buttonIsDisabled: false
     }
   }
 
 
   async submitOrder() {
+    console.log('prout')
+    this.setState({
+      buttonIsDisabled: true
+    })
     const {
       totalAmount,
       selectedShipping,
@@ -102,7 +107,10 @@ class Confirmation extends Component {
               <div className="card-form">
                 <CardElement style={style} hideIcon={true} />
               </div>
+              {this.state.buttonIsDisabled ?
+              <p className="button button-left-border">en attente de paiement</p> :
               <p onClick={this.submitOrder} className="button button-left-border">confirmer & payer la commande</p>
+            }
             </div>
 
             <div className="column is-one lg-is-five right-column">
