@@ -11,7 +11,7 @@ class Product extends React.Component {
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:3001/products')
+        axios.get('https://deuxmillevingt.netlify.com/products')
         .then(response => {
             console.log(response)
             this.setState({
