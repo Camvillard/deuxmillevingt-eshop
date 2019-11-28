@@ -38,7 +38,7 @@ class Confirmation extends Component {
       quantity: parseInt(quantity, 10)
     }
     console.log(order)
-    await axios.post('https://deuxmillevingt.netlify.com/orders', {
+    await axios.post('https://deuxmillevingt-data.herokuapp.com/orders', {
       order
     })
     .then(response => {
