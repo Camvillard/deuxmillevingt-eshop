@@ -29,7 +29,7 @@ class Confirmation extends Component {
       quantity
     } = this.props.state
     console.log(quantity)
-    const chargeToken = await this.props.stripe.createToken({name: userId})
+    const chargeToken = await this.props.stripe.createToken({name: `id : ${userId}`})
     const order = {
       token: chargeToken.token.id,
       price_cents: totalAmount * 100,
