@@ -106,7 +106,8 @@ class App extends React.Component {
 
   submitOrder = (e)  => {
     e.preventDefault()
-    if (this.state.name && this.state.address && this.state.zipCode) {
+    console.log(this.state)
+    if (this.state.name && this.state.address && this.state.zipCode && this.state.quantity !== 0) {
       const {quantity, taxes, selectedShipping } = this.state
       const amount = Math.ceil((quantity * 50 + taxes + (selectedShipping.price_cents/100))*100)/100
       this.setState({
@@ -117,7 +118,7 @@ class App extends React.Component {
       })
       this.createUser()
     } else {
-      alert('missing something')
+      alert("Il semblerait que le formulaire ne soit pas complet ! Essayez de vérifier que la quantité et l'adresse sont corrects.")
     }
   };
 
